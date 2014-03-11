@@ -19,7 +19,7 @@
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <version.spring_framework>3.1.1.RELEASE</version.spring_framework>
-    <version.arquillian.spring>1.0.0.Beta1</version.arquillian.spring>
+    <version.arquillian.spring>1.0.0.Beta2</version.arquillian.spring>
     <version.junit_junit>4.8.1</version.junit_junit>
     <logback.version>1.1.1</logback.version>
   </properties>
@@ -39,37 +39,11 @@
   </build>
 
   <profiles>
+
     <profile>
-      <id>arquillian-weld-ee-embedded</id>
-      <dependencies>
-        <dependency>
-          <groupId>org.jboss.spec</groupId>
-          <artifactId>jboss-javaee-6.0</artifactId>
-          <version>1.0.0.Final</version>
-          <type>pom</type>
-          <scope>provided</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.arquillian.container</groupId>
-          <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
-          <version>1.0.0.CR3</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.jboss.weld</groupId>
-          <artifactId>weld-core</artifactId>
-          <version>1.1.5.Final</version>
-          <scope>test</scope>
-        </dependency>
-        <dependency>
-          <groupId>org.slf4j</groupId>
-          <artifactId>slf4j-simple</artifactId>
-          <version>1.6.4</version>
-          <scope>test</scope>
-        </dependency>
-      </dependencies>
-    </profile>
-    <profile>
+      <activation>
+        <activeByDefault>true</activeByDefault>
+      </activation>
       <id>arquillian-jbossas-managed</id>
       <build>
         <plugins>
@@ -111,6 +85,11 @@
           <groupId>org.jboss.as</groupId>
           <artifactId>jboss-as-arquillian-container-managed</artifactId>
           <version>7.1.1.Final</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.arquillian.protocol</groupId>
+          <artifactId>arquillian-protocol-servlet</artifactId>
           <scope>test</scope>
         </dependency>
       </dependencies>
