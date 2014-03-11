@@ -1,63 +1,174 @@
 <?xml version="1.0"?>
-<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
-         xmlns="http://maven.apache.org/POM/4.0.0"
-         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+<project
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+  xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
 
-    <!-- Model Version -->
-    <modelVersion>4.0.0</modelVersion>
+  <!-- Model Version -->
+  <modelVersion>4.0.0</modelVersion>
 
-    <groupId>cl.sys4net.test</groupId>
-    <artifactId>arquillian-sping-jbpm</artifactId>
-    <packaging>jar</packaging>
-    <version>1.0.0-SNAPSHOT</version>
+  <groupId>cl.sys4net.test</groupId>
+  <artifactId>arquillian-sping-jbpm</artifactId>
+  <packaging>jar</packaging>
+  <version>1.0.0-SNAPSHOT</version>
 
-    <name>Arquillian Test Spring: Injection</name>
-    <url> </url>
-    <description></description>
+  <name>Arquillian Test Spring: Injection</name>
+  <url> </url>
+  <description></description>
 
-    <!-- Properties -->
-    <properties>
-        <version.spring_framework>3.1.1.RELEASE</version.spring_framework>
-        <version.arquillian.spring>1.0.0.Beta1</version.arquillian.spring>
-        <version.arquillian>1.0.2.Final</version.arquillian>
-        <version.junit_junit>4.8.1</version.junit_junit>
-    </properties>
+  <!-- Properties -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <version.spring_framework>3.1.1.RELEASE</version.spring_framework>
+    <version.arquillian.spring>1.0.0.Beta1</version.arquillian.spring>
+    <version.junit_junit>4.8.1</version.junit_junit>
+    <logback.version>1.1.1</logback.version>
+  </properties>
 
-    <!-- Dependencies -->
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>2.3.2</version>
+        <configuration>
+          <source>1.6</source>
+          <target>1.6</target>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+  <profiles>
+    <profile>
+      <id>arquillian-weld-ee-embedded</id>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.spec</groupId>
+          <artifactId>jboss-javaee-6.0</artifactId>
+          <version>1.0.0.Final</version>
+          <type>pom</type>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.arquillian.container</groupId>
+          <artifactId>arquillian-weld-ee-embedded-1.1</artifactId>
+          <version>1.0.0.CR3</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.weld</groupId>
+          <artifactId>weld-core</artifactId>
+          <version>1.1.5.Final</version>
+          <scope>test</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.slf4j</groupId>
+          <artifactId>slf4j-simple</artifactId>
+          <version>1.6.4</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+    <profile>
+      <id>arquillian-jbossas-managed</id>
+      <build>
+        <plugins>
+          <plugin>
+            <artifactId>maven-dependency-plugin</artifactId>
+            <executions>
+              <execution>
+                <id>unpack</id>
+                <phase>process-test-classes</phase>
+                <goals>
+                  <goal>unpack</goal>
+                </goals>
+                <configuration>
+                  <artifactItems>
+                    <artifactItem>
+                      <groupId>org.jboss.as</groupId>
+                      <artifactId>jboss-as-dist</artifactId>
+                      <version>7.1.1.Final</version>
+                      <type>zip</type>
+                      <overWrite>false</overWrite>
+                      <outputDirectory>target</outputDirectory>
+                    </artifactItem>
+                  </artifactItems>
+                </configuration>
+              </execution>
+            </executions>
+          </plugin>
+        </plugins>
+      </build>
+      <dependencies>
+        <dependency>
+          <groupId>org.jboss.spec</groupId>
+          <artifactId>jboss-javaee-6.0</artifactId>
+          <version>1.0.0.Final</version>
+          <type>pom</type>
+          <scope>provided</scope>
+        </dependency>
+        <dependency>
+          <groupId>org.jboss.as</groupId>
+          <artifactId>jboss-as-arquillian-container-managed</artifactId>
+          <version>7.1.1.Final</version>
+          <scope>test</scope>
+        </dependency>
+      </dependencies>
+    </profile>
+  </profiles>
+
+  <dependencyManagement>
     <dependencies>
-
-        <dependency>
-            <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
-            <version>${version.spring_framework}</version>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.junit</groupId>
-            <artifactId>arquillian-junit-container</artifactId>
-            <version>${version.arquillian}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-service-deployer-spring-3</artifactId>
-            <version>${version.arquillian.spring}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>org.jboss.arquillian.extension</groupId>
-            <artifactId>arquillian-service-integration-spring-inject</artifactId>
-            <version>${version.arquillian.spring}</version>
-            <scope>test</scope>
-        </dependency>
-
-        <dependency>
-            <groupId>junit</groupId>
-            <artifactId>junit</artifactId>
-            <version>${version.junit_junit}</version>
-            <scope>test</scope>
-        </dependency>
+      <dependency>
+        <groupId>org.jboss.arquillian</groupId>
+        <artifactId>arquillian-bom</artifactId>
+        <version>1.1.3.Final</version>
+        <scope>import</scope>
+        <type>pom</type>
+      </dependency>
     </dependencies>
+  </dependencyManagement>
+
+  <!-- Dependencies -->
+  <dependencies>
+
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-classic</artifactId>
+      <version>${logback.version}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-context</artifactId>
+      <version>${version.spring_framework}</version>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.junit</groupId>
+      <artifactId>arquillian-junit-container</artifactId>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.extension</groupId>
+      <artifactId>arquillian-service-deployer-spring-3</artifactId>
+      <version>${version.arquillian.spring}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>org.jboss.arquillian.extension</groupId>
+      <artifactId>arquillian-service-integration-spring-inject</artifactId>
+      <version>${version.arquillian.spring}</version>
+      <scope>test</scope>
+    </dependency>
+
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>${version.junit_junit}</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
 </project>
