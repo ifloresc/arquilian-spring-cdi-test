@@ -18,7 +18,7 @@
   <!-- Properties -->
   <properties>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <version.spring_framework>3.1.1.RELEASE</version.spring_framework>
+    <version.spring_framework>4.0.2.RELEASE</version.spring_framework>
     <version.arquillian.spring>1.0.0.Beta2</version.arquillian.spring>
     <version.junit_junit>4.8.1</version.junit_junit>
     <logback.version>1.1.1</logback.version>

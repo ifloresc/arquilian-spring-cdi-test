@@ -39,8 +39,10 @@ public class ProductServiceTest  {
     @Test
     public void create() {
         String name = "Test";
+        
+        String msg = productService.create(name);
 
-        assertEquals("Hello, Test!", productService.create(name));
+        assertEquals("Hello, Test!", msg);
     }
 
 }
