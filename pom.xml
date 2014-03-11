@@ -1,0 +1,63 @@
+<?xml version="1.0"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd"
+         xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+
+    <!-- Model Version -->
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>cl.sys4net.test</groupId>
+    <artifactId>arquillian-sping-jbpm</artifactId>
+    <packaging>jar</packaging>
+    <version>1.0.0-SNAPSHOT</version>
+
+    <name>Arquillian Test Spring: Injection</name>
+    <url> </url>
+    <description></description>
+
+    <!-- Properties -->
+    <properties>
+        <version.spring_framework>3.1.1.RELEASE</version.spring_framework>
+        <version.arquillian.spring>1.0.0.Beta1</version.arquillian.spring>
+        <version.arquillian>1.0.2.Final</version.arquillian>
+        <version.junit_junit>4.8.1</version.junit_junit>
+    </properties>
+
+    <!-- Dependencies -->
+    <dependencies>
+
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${version.spring_framework}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.junit</groupId>
+            <artifactId>arquillian-junit-container</artifactId>
+            <version>${version.arquillian}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-service-deployer-spring-3</artifactId>
+            <version>${version.arquillian.spring}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>org.jboss.arquillian.extension</groupId>
+            <artifactId>arquillian-service-integration-spring-inject</artifactId>
+            <version>${version.arquillian.spring}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>${version.junit_junit}</version>
+            <scope>test</scope>
+        </dependency>
+    </dependencies>
+</project>
